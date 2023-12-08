@@ -1,0 +1,11 @@
+pip install xgboost
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: xgboost in c:\users\dllab\appdata\roaming\python\python39\site-packages (2.0.0)
+Requirement already satisfied: scipy in c:\programdata\anaconda3\lib\site-packages (from xgboost) (1.9.1)
+Requirement already satisfied: numpy in c:\programdata\anaconda3\lib\site-packages (from xgboost) (1.21.5)
+Note: you may need to restart the kernel to use updated packages.
+import xgboost as xgb
+xgb_class=xgb.XGBClassifier()
+xgb_class.fit(X_train,y_train)
+pred=xgb_class.predict(X_test)
+print("Accuracy : ",metrics.accuracy_score(y_test,y_pred))
