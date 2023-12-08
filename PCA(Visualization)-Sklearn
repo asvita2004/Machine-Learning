@@ -1,0 +1,21 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.
+data=pd.read_csv('pumpkin.csv')
+from sklearn.preprocessing import OrdinalEncoder
+encoder = OrdinalEncoder()
+data['Class'] = encoder.fit_transform(data[['Class']])
+scaling=StandardScaler()
+scaling.fit(data)
+Scaled_data=scaling.transform(data)
+principal=PCA(n_components=3)
+principal.fit(Scaled_data)
+x=principal.transform(Scaled_data)
+plt.figure(figsize=(50,50))
+plt.scatter(x[:,0],x[:,1],c=data['Class'],cmap='plasma')
+plt.xlabel('pc1')
+plt.ylabel('pc2')
+plt.show()
