@@ -1,0 +1,35 @@
+import pandas as pd
+import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+df=pd.read_csv("abalone.csv")
+df
+l=LabelEncoder()
+df['SEX']=df['SEX'].astype(str)
+df['SEX']=l.fit_transform(df['SEX'])
+y=df.iloc[:500,0]
+X=df.iloc[:500,1:]
+b=2
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.25,random_state=2)
+x1=[5,6,7,8,9]
+y1=[]
+for k in range (0,5):
+    knn = KNeighborsClassifier(n_neighbors=x1[k],p=1,metric='euclidean')
+    knn.fit(X_train,y_train)
+    y_pred=knn.predict(X_test)
+    print("k = "+str(x1[k])+" accuarcy is "+str(accuracy_score(y_true=y_test,y_pred=knn.predict(X_test))))
+    y1.append(accuracy_score(y_true=y_test,y_pred=knn.predict(X_test)))
+    a=max(y1)
+    for i in range (0,5):
+        if(x1[i]==a):
+            b=i
+print("Best k = "+str(x1[b])+" accuarcy is "+str(a))
+sns.lineplot(x=x1,y=y1)
+plt.xlabel("K Values")
+plt.ylabel("Accuracy Score")
+plt.show()
